@@ -1,6 +1,6 @@
 
 /** Class to Wrap minimal Web Server functionality necessary to implement 
- *  UPnPDevices. WebContext will wrap ESP8266WebServer and (ESP32) WebServer. 
+ *  UPnPDevices. WebContext will wrap ESP8266WebServer and ESP32 WebServer. 
  *  Any other web server implementation should implement a subclass.
  *  
  *  This is not all-inclusive but adaquate for UPnPDevices and should be implementable
