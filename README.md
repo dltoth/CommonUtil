@@ -14,7 +14,7 @@ For an example sketch using WebContext and associated formatting functions, see 
 
 In the sketch, note the following:
 
-**WebContext Instatiation**
+**WebContext Instantiation**
 
 WebContext is declared in global scope above the setup() routine of the sketch, and passed as a pointer. A pointer to either ESP8266WebServer or WebServer for ESP32 is passed in to setup().
 
