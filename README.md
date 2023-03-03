@@ -33,7 +33,7 @@ HTTP request handlers are registered with an *on()* function
   ctx.on("/styles.css",[](WebContext* svr){Simple::styles(svr);});
 ```
 
-Note that a WebContext* is passed by the on() function in its [definition](https://github.com/dltoth/CommonUtil/blob/main/src/WebContext.h). Also not the handler registered for styles.css.
+Note that a WebContext* is passed by the on() function in its [definition](https://github.com/dltoth/CommonUtil/blob/main/src/WebContext.h). Also note the handler registered for styles.css.
 
 Now, turning to the implementation file [Simple.cpp](https://github.com/dltoth/CommonUtil/blob/main/examples/Simple/Simple.cpp), notice the following:
 
