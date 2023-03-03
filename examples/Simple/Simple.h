@@ -23,8 +23,10 @@
 #ifndef SIMPLE_H
 #define SIMPLE_H
 
+
 #include <WebContext.h>
 #include <CommonProgmem.h>
+using namespace lsc;
 
 class Simple {
 

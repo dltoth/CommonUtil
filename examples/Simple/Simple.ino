@@ -30,12 +30,11 @@
  *   3. address:port/request to receive ip address of local and remote ends of the client request
  */
 
-#define AP_SSID "An SSID"
-#define AP_PSK  "A_PSK"
+#define AP_SSID "Dumbledore 1.0"
+#define AP_PSK  "2badboys"
 
 #define SERVER_PORT 80
 
-#include "WebContext.h"
 #include "Simple.h"
 
 #ifdef ESP8266
@@ -51,7 +50,6 @@ WebServer*       svr = &server;
 #endif
 
 WebContext       ctx;
-WebContext*      c   = &ctx;
 
 void setup() {
   Serial.begin(115200);
@@ -59,6 +57,7 @@ void setup() {
     ; // wait for serial port to connect. Needed for native USB port only
   }
 
+  delay(2000);
   Serial.println();
   Serial.printf("\nStarting WebContext Test for board %s\n",BOARD);
   
@@ -71,10 +70,10 @@ void setup() {
   server.begin();
   ctx.setup(svr,WiFi.localIP(),SERVER_PORT);
   Serial.printf("Web Server started on %s:%d/\n",ctx.getLocalIPAddress().toString().c_str(),ctx.getLocalPort());
- 
-  ctx.on("/",[](WebContext* context){Simple::handleRoot(context);});
-  ctx.on("/device",[](WebContext* context){Simple::handleDevice(context);});
-  ctx.on("/request",[](WebContext* context){Simple::handleRequest(context);});
+  
+  ctx.on("/",[](WebContext* c){Simple::handleRoot(c);});
+  ctx.on("/device",[](WebContext* c){Simple::handleDevice(c);});
+  ctx.on("/request",[](WebContext* c){Simple::handleRequest(c);});
 
 }
 
