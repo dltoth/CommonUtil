@@ -64,7 +64,7 @@ All of the handler functions have a common form:
   c->send(200,"text/html",buffer);
 ```
 
-Define a char buffer for HTML conent, then format the HTML. Each call to formatBuffer_P updates the write position *pos*.
+A char buffer is defined for HTML conent and formated with formatBuffer_P. Each call to formatBuffer_P updates the write position *pos*.
 
 Lastly note the handler for CSS Style.
 
