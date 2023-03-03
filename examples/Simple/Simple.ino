@@ -59,7 +59,6 @@ void setup() {
     ; // wait for serial port to connect. Needed for native USB port only
   }
 
-  delay(2000);
   Serial.println();
   Serial.printf("\nStarting WebContext Test for board %s\n",BOARD);
   
