@@ -74,7 +74,7 @@ void setup() {
   ctx.on("/",[](WebContext* c){Simple::handleRoot(c);});
   ctx.on("/device",[](WebContext* c){Simple::handleDevice(c);});
   ctx.on("/request",[](WebContext* c){Simple::handleRequest(c);});
-
+  ctx.on("/styles.css",[](WebContext* svr){Simple::styles(svr);});
 }
 
 void loop() {

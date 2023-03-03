@@ -79,3 +79,7 @@ void Simple::handleRequest(WebContext* c) {
   c->send(200,"text/html",buffer);
   Serial.printf("...handleRequest done\n\n");
 }
+
+void Simple::styles(WebContext* c) {
+  c->send_P(200,TEXT_CSS,styles_css);
+}

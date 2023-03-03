@@ -35,6 +35,7 @@ class Simple {
   static void handleRoot(WebContext* c);
   static void handleDevice(WebContext* c);
   static void handleRequest(WebContext* c);
+  static void styles(WebContext* c);
   
 };
 
