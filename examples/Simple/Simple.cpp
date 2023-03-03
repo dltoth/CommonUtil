@@ -66,7 +66,7 @@ void Simple::handleDevice(WebContext* c) {
 }
 
 void Simple::handleRequest(WebContext* c) {
-  Serial.printf("handleRoot called...\n");
+  Serial.printf("handleRequest called...\n");
   char buffer[1000];
   int pos = 0;
   size_t len = sizeof(buffer);
@@ -77,5 +77,5 @@ void Simple::handleRequest(WebContext* c) {
   len = strlen(buffer);
   Serial.printf("   sending %d bytes:\n",strlen(buffer));
   c->send(200,"text/html",buffer);
-  Serial.printf("...handleRoot done\n\n");
+  Serial.printf("...handleRequest done\n\n");
 }
