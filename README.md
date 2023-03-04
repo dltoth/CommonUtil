@@ -6,7 +6,7 @@ Common utilities necessary for [ssdp](https://github.com/dltoth/ssdp/), [UPnPDev
 |File|Description|
 |---|---|
 |[WebContext](https://github.com/dltoth/CommonUtil/blob/main/src/WebContext.h)|Provides a Web Server abstraction for ESP8266 and ESP32|
-|[CommonProgmem](https://github.com/dltoth/CommonUtil/blob/main/src/CommonProgmem.h)|Defines formatting functions useful for PROGMEM templates for HTML and various PROGMEM templates for formatting HTML, including the stylesheet used by libraries|
+|[CommonProgmem](https://github.com/dltoth/CommonUtil/blob/main/src/CommonProgmem.h)|Defines useful formatting functions for HTML and various PROGMEM templates for formatting HTML, including the stylesheet used by libraries|
 
 &nbsp;
 
