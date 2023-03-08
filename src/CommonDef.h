@@ -32,12 +32,6 @@ namespace lsc {
 #define EMPTY_STRING {""}
 #endif
 
-typedef enum ConnectionState {
-  CNX_DISCONNECTED,
-  CNX_CONNECTING,
-  CNX_CONNECTED
-} ConnectionState;
-
 typedef enum LoggingLevel {
   NONE,
   WARNING,
