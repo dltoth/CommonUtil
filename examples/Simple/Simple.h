@@ -24,9 +24,7 @@
 #define SIMPLE_H
 
 
-#include <WebContext.h>
-#include <CommonProgmem.h>
-using namespace lsc;
+#include <CommonUtil.h>
 
 class Simple {
 

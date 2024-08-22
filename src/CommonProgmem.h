@@ -31,6 +31,53 @@
 */
 namespace lsc {
 
+class URNToken {
+    public:
+    URNToken()                                          {}
+    URNToken(const char* ptr, size_t len)               {initialize(ptr,len);}
+    URNToken(const URNToken& ref)                       {initialize(ref._ptr,ref._len);}
+    virtual ~URNToken()                                 {}
+
+    void initialize(const char* ptr, size_t len)        {_ptr = ptr; _len=len;}
+    void getToken(char buffer[], size_t buffLen) const  {size_t len=((_len+1<buffLen)?(_len+1):(buffLen));if(_ptr!=NULL) strlcpy(buffer,_ptr,len);}
+
+    private:    
+    const char*    _ptr   = NULL;
+    size_t         _len   = 0;
+};
+
+/**
+ *   UPnP URN has the form:
+ *      urn:domain-name:device:deviceType:ver for a device and
+ *      urn:domain-name:service:serviceType:ver for a service
+ *   For example:
+ *      urn:LeelanauSoftware-com:device:RelayControl:1  for a version 1 RelayControl offered by LeelanauSoftware.com
+ *   URNTokenIterator will iterate through the tokens in the URN returning "urn", "LeelanauSoftware-com", "device", "RelayControl", and "1", 
+ *   in that order. It is assumed the URN has the above form, so leading and trailing ':' are ignored. Note that while URN requires ':' as 
+ *   a delimeter, URNTokenIterator can be configured to use any single character as delimeter.
+ *   Note: hasNext() will return false until first() is called, and will return true until end of line is reached.
+ */
+class URNTokenIterator {
+    public:
+    URNTokenIterator(const char* str)                 {_urn = str;}
+    URNTokenIterator(const char* str, char delim)     {_urn = str; _delim = delim;}
+    virtual ~URNTokenIterator() {}
+
+    bool     hasNext()                                {return _next != NULL;}
+    URNToken first();
+    URNToken next();
+    URNToken getToken(unsigned int index);
+    URNToken operator[](unsigned int index)          {return getToken(index);}
+
+    private:
+    const char*     _urn     = NULL;
+    const char*     _current = NULL;
+    const char*     _next    = NULL;
+    char            _delim   = ':';
+
+    URNTokenIterator() {}
+};
+
 /** Helper functions to fill buffer with HTML from templates.
  *  For example:
  *    char buffer[1500];
@@ -74,9 +121,9 @@ const char TEXT_CSS[]      PROGMEM = "text/css";
 const char html_header[]   PROGMEM = "<!DOCTYPE html><html><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
                                         "<head><link rel=\"stylesheet\" type=\"text/css\" href=\"/styles.css\"></head>"
                                         "<body style=\"font-family: Arial\">";
-const char html_title[]    PROGMEM = "<H1 align=\"center\"> %s </H1><br>";
-const char html_L2_title[] PROGMEM = "<H2 align=\"center\"> %s </H2>";
-const char html_L3_title[] PROGMEM = "<H3 align=\"center\"> %s </H3>";
+const char html_title[]    PROGMEM = "<H1 style=\"text-align: center\"> %s </H1><br>";
+const char html_L2_title[] PROGMEM = "<H2 style=\"text-align: center\"> %s </H2>";
+const char html_L3_title[] PROGMEM = "<H3 style=\"text-align: center\"> %s </H3>";
 const char html_tail[]     PROGMEM = "</body></html>";
 const char iframe_html[]   PROGMEM = "<div align=\"center\"><iframe src=\"%s\" height=\"%d\" width=\"%d\" style=\"border:none;\"></iframe></div>";
 const char html_NotFound[] PROGMEM = "<!DOCTYPE html><html><body style=\"font-family: Calibri\"><h1 align=\"center\"> OOPS! %s Not Found!</h1></body></html>"; //URI
@@ -89,6 +136,9 @@ const char small_button[]  PROGMEM = "<a href=\"%s\" class=\"small apButton\">%s
  */
 const char config_button[] PROGMEM = "<a href=\"%s\" class=\"config apButton\">%s</a>";
 
+/**
+ *   Note that styles_css is intended to be sent directly without formating, so the "%" characters are not escaped. 
+ */   
 const char styles_css[]    PROGMEM = ".apButton {"
                 "background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);"
                 "background-color:#ededed;"

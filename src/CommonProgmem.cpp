@@ -27,6 +27,49 @@
 */
 namespace lsc {
 
+URNToken URNTokenIterator::first() {
+  URNToken result;
+  if( _urn != NULL ) {
+     _next = _urn;
+     if( *_next == _delim) _next++;
+     _current  = _next;
+    int  len  = 0;
+     bool done = false;
+     while( (*_next != '\0') && !done) {
+        if( *_next != _delim ) {_next++;len++;}
+        else {_next++;done=true;}
+     }
+     result.initialize(_current, len);
+  }
+  return result;
+}
+
+URNToken URNTokenIterator::next() {
+  URNToken result;
+  if( _next != NULL ) {
+     bool  done = false;
+     _current   = _next;
+     int len    = 0;
+     while( (*_next != '\0') && !done ) {
+        if( *_next != _delim) {_next++;len++;}
+        else {_next++;done=true;}
+     }
+     result.initialize(_current, len);
+     if( *_next == '\0') {_next = NULL;_current = NULL;}
+  }
+  return result;
+}
+
+URNToken URNTokenIterator::getToken(unsigned int index) {
+   URNToken result;
+   int tknNum = 0;
+   int limit = index;
+   URNToken tkn = first();
+   while(hasNext() && (tknNum < limit)) {tknNum++;tkn = next();}
+   if( tknNum == limit) result = tkn;
+   return result;
+}
+
 /**
  *   Helper function for formated print into char buffer.
  *   Starts formating at character position pos based on a PGM_P format string.

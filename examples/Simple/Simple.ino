@@ -26,26 +26,20 @@
  *   IP address and port of the active Web Server
  *   Point a browser at:
  *   1. address:port/ to receive a welcome message
- *   2. address:port/device&arg=...&arg=... to list input arguments of the request
+ *   2. address:port/device&arg=...&arg=... to list input arguments on the request
  *   3. address:port/request to receive ip address of local and remote ends of the client request
  */
 
-#define AP_SSID "Dumbledore 1.0"
-#define AP_PSK  "2badboys"
+#define AP_SSID "MySSID"
+#define AP_PSK  "MyPSK"
 
 #define SERVER_PORT 80
 
 #include "Simple.h"
 
 #ifdef ESP8266
-#include <ESP8266WiFi.h>
-ESP8266WebServer  server(SERVER_PORT);
-ESP8266WebServer* svr = &server;
 #define           BOARD "ESP8266"
 #elif defined(ESP32)
-#include <WiFi.h>
-WebServer        server(SERVER_PORT);
-WebServer*       svr = &server;
 #define          BOARD "ESP32"
 #endif
 
@@ -67,9 +61,8 @@ void setup() {
 
   Serial.printf("\nWiFi Connected to %s with IP address: %s\n",WiFi.SSID().c_str(),WiFi.localIP().toString().c_str());
 
-  server.begin();
-  ctx.setup(svr,WiFi.localIP(),SERVER_PORT);
-  Serial.printf("Web Server started on %s:%d/\n",ctx.getLocalIPAddress().toString().c_str(),ctx.getLocalPort());
+  ctx.begin(SERVER_PORT);
+  Serial.printf("Web Server started on %s:%d/\n",WiFi.localIP().toString().c_str(),ctx.getLocalPort());
   
   ctx.on("/",[](WebContext* c){Simple::handleRoot(c);});
   ctx.on("/device",[](WebContext* c){Simple::handleDevice(c);});
@@ -78,5 +71,5 @@ void setup() {
 }
 
 void loop() {
-     server.handleClient();
+     ctx.handleClient();
 }

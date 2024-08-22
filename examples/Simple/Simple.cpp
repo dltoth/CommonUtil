@@ -72,7 +72,7 @@ void Simple::handleRequest(WebContext* c) {
   size_t len = sizeof(buffer);
   pos = formatBuffer_P(buffer,len,pos,html_header1);
   pos = formatBuffer_P(buffer,len,pos,html_title1,"Request Endpoint Info");
-  pos = formatBuffer_P(buffer,len,pos,html_body2,c->getLocalIPAddress().toString().c_str(),c->getLocalPort(),c->getRemoteIPAddress().toString().c_str(),c->getRemotePort());
+  pos = formatBuffer_P(buffer,len,pos,html_body2,c->client().localIP().toString().c_str(),c->getLocalPort(),c->client().remoteIP().toString().c_str(),c->client().remotePort());
   pos = formatBuffer_P(buffer,len,pos,html_tail1);
   len = strlen(buffer);
   Serial.printf("   sending %d bytes:\n",strlen(buffer));
